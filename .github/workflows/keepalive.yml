@@ -1,0 +1,22 @@
+name: Keepalive
+
+# Render (piano gratuito) spegne il backend dopo 15 minuti senza traffico:
+# un ping ogni 5 minuti lo tiene sveglio, e lo risveglia se si e' spento.
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping /health
+        run: |
+          for i in 1 2 3 4 5 6; do
+            if curl -fsS -m 60 https://helm-d8ru.onrender.com/health; then echo; exit 0; fi
+            sleep 20
+          done
+          echo "Il backend non risponde" >&2
+          exit 1
