@@ -17,12 +17,16 @@ function toast(msg, err) {
   const t = $('toast'); t.textContent = msg; t.className = 'toast show' + (err ? ' err' : '');
   clearTimeout(t._h); t._h = setTimeout(() => t.className = 'toast' + (err ? ' err' : ''), 2800);
 }
+// fetch con timeout: se Render sta ripartendo una richiesta puo' restare appesa per sempre.
+function get(url, opts = {}, ms = 10000) {
+  return fetch(url, { ...opts, signal: AbortSignal.timeout(ms) });
+}
 async function api(path, body) {
-  const r = await fetch(API + path, {
+  const r = await get(API + path, {
     method: body ? 'POST' : 'GET',
     headers: { Authorization: 'Bearer ' + token, ...(body ? { 'Content-Type': 'application/json' } : {}) },
     body: body ? JSON.stringify(body) : undefined,
-  });
+  }, 30000);
   if (r.status === 401) { logout(); throw new Error('auth'); }
   const j = await r.json();
   if (!r.ok) throw new Error(j.error || r.status);
@@ -88,8 +92,9 @@ async function wake() {
   const t0 = Date.now();
   for (;;) {
     try {
-      const r = await fetch(API + '/health', { cache: 'no-store' });
+      const r = await get(API + '/health', { cache: 'no-store' }, 8000);
       if (r.ok) return true;
+      if (r.status === 404) { $('bootTxt').textContent = 'Backend non trovato: ricarica la pagina con Ctrl+F5.'; return false; }
     } catch {}
     const s = Math.round((Date.now() - t0) / 1000);
     $('bootTxt').textContent = s < 4 ? 'Connessione…' : `Risveglio del server… ${s}s`;
@@ -127,7 +132,7 @@ async function showLogin(err) {
   $('app').hidden = true; $('login').hidden = false;
   $('loginErr').textContent = ERRORS[err] || (err ? 'Accesso non riuscito.' : '');
   try {
-    const p = await fetch(API + '/auth/providers').then(r => r.json());
+    const p = await get(API + '/auth/providers').then(r => r.json());
     $('discordBtn').hidden = !p.discord;
     $('tgBtn').hidden = !p.telegram;
   } catch { $('loginErr').textContent = 'Backend non raggiungibile.'; }
@@ -136,14 +141,14 @@ $('discordBtn').onclick = () => { location.href = API + '/auth/discord'; };
 $('tgBtn').onclick = async () => {
   $('tgBtn').disabled = true; $('loginErr').textContent = '';
   try {
-    const r = await fetch(API + '/auth/telegram/start', { method: 'POST' }).then(r => r.json());
+    const r = await get(API + '/auth/telegram/start', { method: 'POST' }).then(r => r.json());
     if (!r.link) throw new Error();
     $('tgLink').href = r.link; $('tgLink').textContent = 'Apri @' + r.bot;
     $('tgWait').hidden = false;
     window.open(r.link, '_blank', 'noopener');
     clearInterval(tgPoll);
     tgPoll = setInterval(async () => {
-      const c = await fetch(API + '/auth/telegram/check?code=' + r.code).then(r => r.json()).catch(() => ({}));
+      const c = await get(API + '/auth/telegram/check?code=' + r.code).then(r => r.json()).catch(() => ({}));
       if (c.status === 'ok') { clearInterval(tgPoll); token = c.token; store.set('helm-token', token); me = await api('/api/me'); startApp(); }
       else if (c.status === 'denied' || c.status === 'expired') {
         clearInterval(tgPoll); $('tgWait').hidden = true; $('tgBtn').disabled = false;
