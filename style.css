@@ -175,7 +175,7 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 .toast {
-  position: fixed; right: var(--pad); bottom: var(--pad); z-index: 60; max-width: 360px;
+  position: fixed; right: var(--pad); bottom: var(--pad); z-index: 60; max-width: 460px;
   padding: .8rem 1rem; border-radius: 14px; border: 1px solid var(--line2); background: var(--card2);
   backdrop-filter: blur(12px); font-size: .86rem; opacity: 0; transform: translateY(10px);
   transition: opacity .4s var(--ease), transform .4s var(--ease); pointer-events: none;

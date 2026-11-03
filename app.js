@@ -226,7 +226,7 @@ async function loadServers() {
     servers = await api('/api/servers');
     if (!servers.find(s => s.uuid === current)) current = (servers.find(s => s.uuid === me.proxy) || servers[0] || {}).uuid;
     renderSide(); renderHead();
-  } catch (e) { if (e.message !== 'auth') toast('Lista server non disponibile', true); }
+  } catch (e) { if (e.message !== 'auth') toast('Lista server non disponibile: ' + e.message, true); }
 }
 
 function select(uuid) {
