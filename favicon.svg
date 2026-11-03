@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 912 912">
   <defs>
     <radialGradient id="g" cx="456" cy="456" r="300" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#6a4ad0"/>
-      <stop offset=".45" stop-color="#3e2a8c"/>
-      <stop offset="1" stop-color="#1c1342"/>
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".2" stop-color="#ececec"/>
+      <stop offset=".58" stop-color="#9a9a9a"/>
+      <stop offset="1" stop-color="#4a4a4a"/>
     </radialGradient>
     <line id="s" x1="456" y1="456" x2="456" y2="150" stroke-width="56" stroke-linecap="round"/>
   </defs>
