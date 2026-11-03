@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <line id="spoke" x1="32" y1="24" x2="32" y2="5" stroke="#ededed" stroke-width="4" stroke-linecap="round"/>
+  </defs>
+  <circle cx="32" cy="32" r="16" fill="none" stroke="#ededed" stroke-width="4"/>
+  <use href="#spoke"/>
+  <use href="#spoke" transform="rotate(45 32 32)"/>
+  <use href="#spoke" transform="rotate(90 32 32)"/>
+  <use href="#spoke" transform="rotate(135 32 32)"/>
+  <use href="#spoke" transform="rotate(180 32 32)"/>
+  <use href="#spoke" transform="rotate(225 32 32)"/>
+  <use href="#spoke" transform="rotate(270 32 32)"/>
+  <use href="#spoke" transform="rotate(315 32 32)"/>
+  <circle cx="32" cy="32" r="6" fill="#a594ff"/>
+</svg>
