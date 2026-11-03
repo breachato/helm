@@ -90,12 +90,20 @@ function hideBoot() { $('boot').classList.add('out'); setTimeout(() => { $('boot
 const focusCmd = () => { if (matchMedia('(pointer: fine)').matches) $('cmd').focus({ preventScroll: true }); };
 async function wake() {
   const t0 = Date.now();
+  let blocked = 0; // richieste fallite subito, senza rete: tipico di un adblock che blocca onrender.com
   for (;;) {
+    const t = Date.now();
     try {
       const r = await get(API + '/health', { cache: 'no-store' }, 8000);
       if (r.ok) return true;
       if (r.status === 404) { $('bootTxt').textContent = 'Backend non trovato: ricarica la pagina con Ctrl+F5.'; return false; }
-    } catch {}
+    } catch (e) {
+      if (e.name !== 'TimeoutError' && Date.now() - t < 300) blocked++;
+    }
+    if (blocked >= 3) {
+      $('bootTxt').textContent = 'Un\'estensione del browser (adblock) blocca il collegamento: consenti questo sito e ricarica.';
+      return false;
+    }
     const s = Math.round((Date.now() - t0) / 1000);
     $('bootTxt').textContent = s < 4 ? 'Connessione…' : `Risveglio del server… ${s}s`;
     if (s > 120) { $('bootTxt').textContent = 'Il server non risponde. Riprova tra poco.'; return false; }
