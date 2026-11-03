@@ -1,16 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 912 912">
   <defs>
-    <line id="spoke" x1="32" y1="25" x2="32" y2="10" stroke="#ededed" stroke-width="4" stroke-linecap="round"/>
+    <radialGradient id="g" cx="456" cy="456" r="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6a4ad0"/>
+      <stop offset=".45" stop-color="#3e2a8c"/>
+      <stop offset="1" stop-color="#1c1342"/>
+    </radialGradient>
+    <line id="s" x1="456" y1="456" x2="456" y2="150" stroke-width="56" stroke-linecap="round"/>
   </defs>
-  <rect width="64" height="64" rx="16" fill="#070707"/>
-  <circle cx="32" cy="32" r="13" fill="none" stroke="#ededed" stroke-width="4"/>
-  <use href="#spoke"/>
-  <use href="#spoke" transform="rotate(45 32 32)"/>
-  <use href="#spoke" transform="rotate(90 32 32)"/>
-  <use href="#spoke" transform="rotate(135 32 32)"/>
-  <use href="#spoke" transform="rotate(180 32 32)"/>
-  <use href="#spoke" transform="rotate(225 32 32)"/>
-  <use href="#spoke" transform="rotate(270 32 32)"/>
-  <use href="#spoke" transform="rotate(315 32 32)"/>
-  <circle cx="32" cy="32" r="5" fill="#a594ff"/>
+  <rect width="912" height="912" rx="200" fill="#070707"/>
+  <g stroke="url(#g)" fill="none">
+    <circle cx="456" cy="456" r="175" stroke-width="56"/>
+    <use href="#s"/>
+    <use href="#s" transform="rotate(45 456 456)"/>
+    <use href="#s" transform="rotate(90 456 456)"/>
+    <use href="#s" transform="rotate(135 456 456)"/>
+    <use href="#s" transform="rotate(180 456 456)"/>
+    <use href="#s" transform="rotate(225 456 456)"/>
+    <use href="#s" transform="rotate(270 456 456)"/>
+    <use href="#s" transform="rotate(315 456 456)"/>
+  </g>
 </svg>
