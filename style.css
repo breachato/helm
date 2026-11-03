@@ -88,6 +88,12 @@ button { cursor: pointer; background: none; border: 0; padding: 0; }
 }
 .tgwait .txt { display: flex; align-items: center; gap: .6rem; color: var(--mut); font-size: .88rem; flex: 1; min-width: 180px; }
 .login .foot { position: absolute; bottom: var(--pad); left: var(--pad); font-family: var(--mono); font-size: .72rem; color: var(--dim); }
+@media (max-height: 640px) {
+  .login { position: static; min-height: 100%; padding-top: 2rem; padding-bottom: 2rem; }
+  .login .foot { position: static; margin-top: 2rem; }
+  .login .mark { width: 48px; height: 48px; margin-bottom: 1.4rem; }
+  body { overflow: auto; }
+}
 
 /* ---------- App ---------- */
 .app { height: 100%; display: flex; flex-direction: column; }
