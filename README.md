@@ -1,6 +1,6 @@
 # Helm
 
-The web interface of **Helm**, the control panel for the Pelican game servers behind NEXT Roleplay and Coreline.
+The web interface of **Helm**, the control panel for the Pelican game servers I work on.
 Live at **[breachato.github.io/helm](https://breachato.github.io/helm/)**, for authorized owners only.
 
 - **Every server, live**: grouped by network, with state, CPU, RAM, disk and uptime, refreshed every few seconds.
